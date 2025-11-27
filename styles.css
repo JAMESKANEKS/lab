@@ -5,13 +5,13 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif !important;
   background-color: #f5f7fa;
   color: #1a202c;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.6;
-  font-size: 16px;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  line-height: 1.6 !important;
+  font-size: 16px !important;
 }
 
 .container {
@@ -92,18 +92,18 @@ body {
 }
 
 .nav-link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  border-radius: 8px;
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.95);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.5;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 12px 16px !important;
+  border-radius: 8px !important;
+  text-decoration: none !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
 }
 
 .nav-link:hover,
@@ -139,12 +139,12 @@ body {
 }
 
 .page-title {
-  font-size: 28px;
-  font-weight: 800;
-  color: #001a33;
-  letter-spacing: -0.5px;
-  line-height: 1.3;
-  margin: 0;
+  font-size: 28px !important;
+  font-weight: 800 !important;
+  color: #001a33 !important;
+  letter-spacing: -0.5px !important;
+  line-height: 1.3 !important;
+  margin: 0 !important;
 }
 
 .user-menu {
@@ -265,9 +265,9 @@ body {
 }
 
 table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 16px;
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 16px !important;
 }
 
 thead {
@@ -276,20 +276,20 @@ thead {
 }
 
 th {
-  padding: 16px 24px;
-  text-align: left;
-  font-size: 16px;
-  font-weight: 600;
-  color: #4a5568;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  padding: 16px 24px !important;
+  text-align: left !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #4a5568 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
 }
 
 td {
-  padding: 16px 24px;
-  border-bottom: 1px solid #e2e8f0;
-  font-size: 16px;
-  color: #2d3748;
+  padding: 16px 24px !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  font-size: 16px !important;
+  color: #2d3748 !important;
 }
 
 tbody tr:hover {
@@ -421,20 +421,20 @@ select:focus {
 }
 
 .service-name {
-  font-weight: 700;
-  color: #1a202c;
-  font-size: 17px;
-  margin-bottom: 8px;
-  letter-spacing: -0.1px;
-  line-height: 1.4;
+  font-weight: 700 !important;
+  color: #1a202c !important;
+  font-size: 17px !important;
+  margin-bottom: 8px !important;
+  letter-spacing: -0.1px !important;
+  line-height: 1.4 !important;
 }
 
 .service-price {
-  font-size: 19px;
-  font-weight: 800;
-  color: #1e40af;
-  margin-bottom: 10px;
-  letter-spacing: -0.2px;
+  font-size: 19px !important;
+  font-weight: 800 !important;
+  color: #1e40af !important;
+  margin-bottom: 10px !important;
+  letter-spacing: -0.2px !important;
 }
 
 .toggle-switch {
