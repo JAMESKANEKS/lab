@@ -1,0 +1,2160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toledo Doctor's and Diagnostic Center</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background-color: #f5f7fa;
+            color: #1a202c;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            background: linear-gradient(135deg, #001f3f 0%, #003d7a 100%);
+            color: white;
+            padding: 24px 16px;
+            position: fixed;
+            width: 250px;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        /* Improved mobile menu toggle button styling */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 8px 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .mobile-menu-toggle:hover {
+            color: #ffd700;
+            transform: scale(1.1);
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        /* Updated logo section to display the actual logo image */
+        .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .logo-image {
+            width: 100px;
+            height: 80px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+        }
+
+        .logo-text {
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.3;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.85);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: rgba(255, 215, 0, 0.2);
+            color: white;
+            border-left: 3px solid #ffd700;
+            padding-left: 13px;
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        /* Main Content */
+        .main-content {
+            grid-column: 2;
+            padding: 32px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #001f3f;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #001f3f 0%, #003d7a 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* Dashboard Content */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            border-left: 4px solid #ffd700;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            border-color: #cbd5e1;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: #fff3e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #ffd700;
+        }
+
+        .card-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #001f3f;
+            margin-bottom: 8px;
+        }
+
+        .card-trend {
+            font-size: 12px;
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .card-trend.negative {
+            color: #ef4444;
+        }
+
+        /* Table Styles */
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            margin-bottom: 32px;
+        }
+
+        .table-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #001f3f;
+        }
+
+        .table-filters {
+            display: flex;
+            gap: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #f8fafc;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        th {
+            padding: 16px 24px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 16px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+            color: #334155;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-danger {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-info {
+            background: #dbeafe;
+            color: #0c4a6e;
+        }
+
+        /* Button Styles */
+        .button {
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .button-primary {
+            background: linear-gradient(135deg, #001f3f 0%, #003d7a 100%);
+            color: white;
+        }
+
+        .button-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 31, 63, 0.3);
+        }
+
+        .button-secondary {
+            background: #fff3e0;
+            color: #ffd700;
+            border: 1px solid #ffe082;
+        }
+
+        .button-secondary:hover {
+            background: #ffe0b2;
+        }
+
+        .button-small {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        /* Input Styles */
+        .input-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #001f3f;
+            box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1);
+        }
+
+        /* Page Sections */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Service List */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .service-card {
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            transition: all 0.3s ease;
+            border-top: 3px solid #ffd700;
+        }
+
+        .service-card:hover {
+            border-color: #001f3f;
+            box-shadow: 0 4px 12px rgba(0, 31, 63, 0.1);
+        }
+
+        .service-name {
+            font-weight: 700;
+            color: #001f3f;
+            margin-bottom: 8px;
+        }
+
+        .service-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffd700;
+            margin-bottom: 8px;
+        }
+
+        .toggle-switch {
+            width: 44px;
+            height: 24px;
+            background: #cbd5e1;
+            border-radius: 12px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .toggle-switch.active {
+            background: #10b981;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active::after {
+            left: 22px;
+        }
+
+        /* Improved responsive media queries for tablets and mobile */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 200px;
+                padding: 16px 12px;
+            }
+
+            .main-content {
+                padding: 24px;
+            }
+
+            .page-title {
+                font-size: 24px;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .service-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            /* Mobile sidebar with overlay */
+            .sidebar {
+                position: fixed;
+                width: 250px;
+                height: 100vh;
+                left: -250px;
+                top: 0;
+                z-index: 1000;
+                transition: left 0.3s ease;
+                box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            /* Close sidebar when clicking outside */
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .main-content {
+                grid-column: 1;
+                padding: 16px;
+            }
+
+            .page-title {
+                font-size: 20px;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .card {
+                padding: 16px;
+            }
+
+            .card-value {
+                font-size: 24px;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+
+            .table-filters {
+                flex-wrap: wrap;
+                width: 100%;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 12px 8px;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            input[type="text"],
+            input[type="date"],
+            select {
+                width: 100%;
+            }
+
+            .service-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 12px;
+            }
+
+            .service-card {
+                padding: 12px;
+            }
+
+            .service-name {
+                font-size: 13px;
+            }
+
+            .service-price {
+                font-size: 14px;
+            }
+
+            /* Mobile category toggle */
+            .category {
+                margin-bottom: 16px;
+            }
+
+            .category-header {
+                padding: 12px 0;
+            }
+
+            .category-toggle {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar {
+                width: 100%;
+                left: -100%;
+                height: auto;
+                position: fixed;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+
+            .main-content {
+                padding: 12px;
+            }
+
+            .page-title {
+                font-size: 18px;
+            }
+
+            .card {
+                padding: 12px;
+            }
+
+            .card-value {
+                font-size: 20px;
+            }
+
+            .card-title {
+                font-size: 12px;
+            }
+
+            .dashboard-grid {
+                gap: 12px;
+            }
+
+            table {
+                font-size: 11px;
+                display: block;
+                overflow-x: auto;
+            }
+
+            th, td {
+                padding: 8px 4px;
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .badge {
+                font-size: 11px;
+                padding: 3px 8px;
+            }
+
+            .button {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            input[type="text"],
+            input[type="date"],
+            select {
+                width: 100%;
+                font-size: 16px;
+            }
+
+            .logo-image {
+                width: 60px;
+                height: 60px;
+            }
+
+            .logo-text {
+                font-size: 10px;
+            }
+        }
+
+        /* Category Styles */
+        .service-category {
+            margin-bottom: 24px;
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: #f8fafc;
+            border-radius: 12px 12px 0 0;
+            cursor: pointer;
+        }
+
+        .category-header h4 {
+            margin: 0;
+        }
+
+        .category-table {
+            display: none;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .category-table.active {
+            display: table;
+        }
+
+        .toggle-icon {
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-icon.active {
+            transform: rotate(180deg);
+        }
+
+        /* New style for categorized service grid */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 0; /* Reset margin-top */
+            padding: 16px 24px; /* Add padding for the grid content */
+            border: 1px solid #e2e8f0;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+        }
+
+        /* Added modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 0;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #e0e7ff;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 18px;
+            color: #001f3f;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #334155;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 20px;
+            border-top: 1px solid #e0e7ff;
+        }
+
+        .button-small {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        /* Enhanced responsive design with better breakpoints and fluid scaling */
+        
+        /* Extra large screens (1440px+) */
+        @media (min-width: 1440px) {
+            .container {
+                grid-template-columns: 280px 1fr;
+                gap: 32px;
+            }
+            
+            .sidebar {
+                width: 280px;
+                padding: 24px 16px;
+            }
+            
+            .main-content {
+                padding: 32px;
+            }
+            
+            .page-title {
+                font-size: 32px;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 24px;
+            }
+            
+            .service-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+        }
+        
+        /* Large screens (1024px - 1439px) */
+        @media (min-width: 1024px) and (max-width: 1439px) {
+            .container {
+                grid-template-columns: 240px 1fr;
+                gap: 24px;
+            }
+            
+            .sidebar {
+                width: 240px;
+                padding: 20px 12px;
+            }
+            
+            .main-content {
+                padding: 28px;
+            }
+            
+            .page-title {
+                font-size: 28px;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+            
+            .service-grid {
+                grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+                gap: 16px;
+            }
+        }
+
+        /* Medium screens (768px - 1023px) */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .container {
+                grid-template-columns: 200px 1fr;
+                gap: 16px;
+            }
+
+            .sidebar {
+                width: 200px;
+                padding: 16px 10px;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .page-title {
+                font-size: 24px;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .service-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 12px;
+            }
+            
+            .mobile-menu-toggle {
+                display: none;
+            }
+            
+            .sidebar-overlay {
+                display: none !important;
+            }
+        }
+
+        /* Tablets (481px - 767px) */
+        @media (min-width: 481px) and (max-width: 767px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: fixed;
+                width: 70%;
+                height: 100vh;
+                left: -70%;
+                top: 0;
+                z-index: 1000;
+                transition: left 0.3s ease;
+                box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+                padding: 16px 12px;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .main-content {
+                grid-column: 1;
+                padding: 18px;
+            }
+
+            .page-title {
+                font-size: 22px;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .card {
+                padding: 16px;
+            }
+
+            .card-value {
+                font-size: 24px;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+
+            .table-filters {
+                flex-wrap: wrap;
+                width: 100%;
+                gap: 10px;
+            }
+
+            table {
+                font-size: 13px;
+                overflow-x: auto;
+            }
+
+            th, td {
+                padding: 12px 8px;
+            }
+
+            .input-group {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            input[type="text"],
+            input[type="date"],
+            select {
+                width: 100%;
+            }
+
+            .service-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                gap: 12px;
+            }
+
+            .service-card {
+                padding: 14px;
+            }
+
+            .service-name {
+                font-size: 13px;
+            }
+
+            .service-price {
+                font-size: 14px;
+            }
+        }
+
+        /* Mobile phones (320px - 480px) */
+        @media (max-width: 480px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .sidebar {
+                position: fixed;
+                width: 85%;
+                max-width: 280px;
+                height: 100vh;
+                left: -100%;
+                top: 0;
+                z-index: 1000;
+                transition: left 0.3s ease;
+                box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+                padding: 16px 12px;
+                overflow-y: auto;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+                background: #001f3f;
+                color: #ffd700;
+                border: none;
+                padding: 12px 16px;
+                font-size: 24px;
+                cursor: pointer;
+                margin: 0;
+                position: fixed;
+                top: 12px;
+                left: 12px;
+                z-index: 1001;
+                border-radius: 4px;
+                transition: all 0.3s ease;
+            }
+
+            .mobile-menu-toggle:hover {
+                background: #003d5c;
+                transform: scale(1.05);
+            }
+
+            .main-content {
+                grid-column: 1;
+                padding: 12px;
+                padding-top: 60px;
+            }
+
+            .page-title {
+                font-size: 18px;
+                margin-bottom: 16px;
+            }
+
+            .card {
+                padding: 12px;
+                margin-bottom: 12px;
+            }
+
+            .card-value {
+                font-size: 18px;
+            }
+
+            .card-title {
+                font-size: 12px;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: stretch;
+            }
+
+            .table-filters {
+                flex-direction: column;
+                width: 100%;
+                gap: 8px;
+            }
+
+            .filter-input {
+                width: 100% !important;
+            }
+
+            table {
+                font-size: 11px;
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+                border-collapse: collapse;
+            }
+
+            thead {
+                display: none;
+            }
+
+            tbody {
+                display: block;
+            }
+
+            tr {
+                display: block;
+                margin-bottom: 12px;
+                border: 1px solid #e0e0e0;
+                border-radius: 4px;
+                overflow: hidden;
+            }
+
+            td {
+                display: block;
+                padding: 8px;
+                text-align: right;
+                position: relative;
+                padding-left: 50%;
+            }
+
+            td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 8px;
+                font-weight: bold;
+                color: #001f3f;
+                width: 40%;
+                text-align: left;
+            }
+
+            th, td {
+                padding: 8px 4px;
+            }
+
+            .badge {
+                font-size: 10px;
+                padding: 3px 6px;
+            }
+
+            .button {
+                padding: 8px 12px;
+                font-size: 12px;
+                width: 100%;
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .service-card {
+                padding: 12px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .service-info {
+                flex: 1;
+            }
+
+            .service-name {
+                font-size: 14px;
+                font-weight: 600;
+            }
+
+            .service-price {
+                font-size: 13px;
+                color: #666;
+            }
+
+            .input-group {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            input[type="text"],
+            input[type="date"],
+            select {
+                width: 100%;
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            /* Modal responsive */
+            .modal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 90%;
+                max-height: 85vh;
+                overflow-y: auto;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+
+            .modal-header {
+                font-size: 18px;
+            }
+
+            .form-group {
+                margin-bottom: 12px;
+            }
+
+            .form-group label {
+                font-size: 13px;
+            }
+
+            .form-group input,
+            .form-group select {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+
+        /* Extra small screens (< 320px) */
+        @media (max-width: 319px) {
+            .main-content {
+                padding: 8px;
+                padding-top: 50px;
+            }
+
+            .page-title {
+                font-size: 16px;
+            }
+
+            .card {
+                padding: 10px;
+            }
+
+            .card-value {
+                font-size: 16px;
+            }
+
+            .button {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Added sidebar overlay for mobile -->
+        <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <!-- Added Toledo Doctor's logo image and company name -->
+                <div class="logo">
+                    <img src="logo.jpg" alt="Toledo Doctor's Logo" class="logo-image">
+                    <div class="logo-text">Toledo Doctor's and<br>Diagnostic Center</div>
+                </div>
+                <button class="mobile-menu-toggle" onclick="toggleSidebar()">☰</button>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a class="nav-link active" onclick="showSection('dashboard'); toggleSidebar();">
+                        <span class="nav-icon">📊</span>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showSection('services'); toggleSidebar();">
+                        <span class="nav-icon">🔬</span>
+                        Services
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showSection('transactions'); toggleSidebar();">
+                        <span class="nav-icon">💳</span>
+                        Transactions
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showSection('reports'); toggleSidebar();">
+                        <span class="nav-icon">📈</span>
+                        Reports
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showSection('receipts'); toggleSidebar();">
+                        <span class="nav-icon">🧾</span>
+                        Receipts
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="header">
+                    <h1 class="page-title">Dashboard</h1>
+                    <div class="user-menu">
+                        <div class="user-avatar">JD</div>
+                    </div>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">Services Today</div>
+                                <div class="card-value">42</div>
+                                <div class="card-trend">↑ 12% from yesterday</div>
+                            </div>
+                            <div class="card-icon">🔬</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">Total Revenue</div>
+                                <div class="card-value">₱410,200</div>
+                                <div class="card-trend">↑ 8% from yesterday</div>
+                            </div>
+                            <div class="card-icon">💰</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">Pending Results</div>
+                                <div class="card-value">15</div>
+                                <div class="card-trend negative">↑ 3 critical</div>
+                            </div>
+                            <div class="card-icon">⏳</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">Active Patients</div>
+                                <div class="card-value">287</div>
+                                <div class="card-trend">↑ 5% this week</div>
+                            </div>
+                            <div class="card-icon">👥</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Transactions -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3 class="table-title">Recent Transactions</h3>
+                        <button class="button button-secondary button-small">View All</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Transaction ID</th>
+                                <th>Patient</th>
+                                <th>Service</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#TXN001</td>
+                                <td>John Smith</td>
+                                <td>Blood Test</td>
+                                <td>$45.00</td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                                <td>Nov 26, 2025</td>
+                            </tr>
+                            <tr>
+                                <td>#TXN002</td>
+                                <td>Sarah Johnson</td>
+                                <td>COVID Test</td>
+                                <td>$25.00</td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                                <td>Nov 26, 2025</td>
+                            </tr>
+                            <tr>
+                                <td>#TXN003</td>
+                                <td>Mike Davis</td>
+                                <td>X-Ray</td>
+                                <td>$120.00</td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>Nov 26, 2025</td>
+                            </tr>
+                            <tr>
+                                <td>#TXN004</td>
+                                <td>Emma Wilson</td>
+                                <td>Urinalysis</td>
+                                <td>$35.00</td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                                <td>Nov 25, 2025</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Services Availability Section -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3 class="table-title">Services Availability</h3>
+                    </div>
+
+                    <!-- Laboratory Services -->
+                    <div class="service-category">
+                        <div class="category-header" onclick="toggleCategory('laboratory')">
+                            <h4>Laboratory Services</h4>
+                            <span class="toggle-icon" id="laboratory-icon">▼</span>
+                        </div>
+                        <table id="laboratory" class="category-table">
+                            <thead>
+                                <tr>
+                                    <th>Service Name</th>
+                                    <th>Status</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Blood Test</td>
+                                    <td><span class="badge badge-success">Available</span></td>
+                                    <td>₱450</td>
+                                </tr>
+                                <tr>
+                                    <td>COVID-19 Test</td>
+                                    <td><span class="badge badge-success">Available</span></td>
+                                    <td>₱250</td>
+                                </tr>
+                                <tr>
+                                    <td>Urinalysis</td>
+                                    <td><span class="badge badge-success">Available</span></td>
+                                    <td>₱350</td>
+                                </tr>
+                                <tr>
+                                    <td>Thyroid Profile</td>
+                                    <td><span class="badge badge-success">Available</span></td>
+                                    <td>₱600</td>
+                                </tr>
+                                <tr>
+                                    <td>Liver Function Test</td>
+                                    <td><span class="badge badge-success">Available</span></td>
+                                    <td>₱700</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Radiology Services -->
+                    <div class="service-category">
+                        <div class="category-header" onclick="toggleCategory('radiology')">
+                            <h4>Radiology Services</h4>
+                            <span class="toggle-icon" id="radiology-icon">▼</span>
+                        </div>
+                        <table id="radiology" class="category-table">
+                            <thead>
+                                <tr>
+                                    <th>Service Name</th>
+                                    <th>Status</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>X-Ray Chest</td>
+                                    <td><span class="badge badge-success">Available</span></td>
+                                    <td>₱1,200</td>
+                                </tr>
+                                <tr>
+                                    <td>Ultrasound</td>
+                                    <td><span class="badge badge-success">Available</span></td>
+                                    <td>₱1,500</td>
+                                </tr>
+                                <tr>
+                                    <td>CT Scan</td>
+                                    <td><span class="badge badge-danger">Not Available</span></td>
+                                    <td>₱3,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Cardiology Services -->
+                    <div class="service-category">
+                        <div class="category-header" onclick="toggleCategory('cardiology')">
+                            <h4>Cardiology Services</h4>
+                            <span class="toggle-icon" id="cardiology-icon">▼</span>
+                        </div>
+                        <table id="cardiology" class="category-table">
+                            <thead>
+                                <tr>
+                                    <th>Service Name</th>
+                                    <th>Status</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ECG</td>
+                                    <td><span class="badge badge-success">Available</span></td>
+                                    <td>₱800</td>
+                                </tr>
+                                <tr>
+                                    <td>Echocardiogram</td>
+                                    <td><span class="badge badge-danger">Not Available</span></td>
+                                    <td>₱2,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section id="services" class="section">
+                <div class="header">
+                    <h1 class="page-title">Laboratory Services</h1>
+                    <div class="user-menu">
+                        <button class="button button-primary">Add Service</button>
+                    </div>
+                </div>
+
+                <!-- Replace service grid with categorized service sections -->
+                <div class="table-container">
+                    <!-- Laboratory Services Category -->
+                    <div class="service-category">
+                        <div class="category-header" onclick="toggleCategory('lab-services')">
+                            <h4>Laboratory Services</h4>
+                            <span class="toggle-icon" id="lab-services-icon">▼</span>
+                        </div>
+                        <div id="lab-services" class="category-grid">
+                            <div class="service-card">
+                                <div class="service-name">Blood Test</div>
+                                <div class="service-price">₱2,250</div>
+                                <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Complete blood count with differential</p>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <!-- Added edit button to service card -->
+                                    <button class="button button-small button-primary" onclick="openEditModal('Blood Test', '₱2,250', 'Complete blood count with differential', true)">Edit</button>
+                                    <button class="toggle-switch active" onclick="toggleService(this)"></button>
+                                </div>
+                            </div>
+
+                            <div class="service-card">
+                                <div class="service-name">COVID Test</div>
+                                <div class="service-price">₱1,250</div>
+                                <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Rapid COVID-19 antigen test</p>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <button class="button button-small button-primary" onclick="openEditModal('COVID Test', '₱1,250', 'Rapid COVID-19 antigen test', true)">Edit</button>
+                                    <button class="toggle-switch active" onclick="toggleService(this)"></button>
+                                </div>
+                            </div>
+
+                            <div class="service-card">
+                                <div class="service-name">Urinalysis</div>
+                                <div class="service-price">₱1,750</div>
+                                <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Comprehensive urine analysis</p>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <button class="button button-small button-primary" onclick="openEditModal('Urinalysis', '₱1,750', 'Comprehensive urine analysis', true)">Edit</button>
+                                    <button class="toggle-switch active" onclick="toggleService(this)"></button>
+                                </div>
+                            </div>
+
+                            <div class="service-card">
+                                <div class="service-name">Thyroid Panel</div>
+                                <div class="service-price">₱3,250</div>
+                                <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">TSH, T3, T4 hormone analysis</p>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <button class="button button-small button-primary" onclick="openEditModal('Thyroid Panel', '₱3,250', 'TSH, T3, T4 hormone analysis', true)">Edit</button>
+                                    <button class="toggle-switch active" onclick="toggleService(this)"></button>
+                                </div>
+                            </div>
+
+                            <div class="service-card">
+                                <div class="service-name">Liver Function Test</div>
+                                <div class="service-price">₱3,500</div>
+                                <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Comprehensive liver panel analysis</p>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <button class="button button-small button-primary" onclick="openEditModal('Liver Function Test', '₱3,500', 'Comprehensive liver panel analysis', true)">Edit</button>
+                                    <button class="toggle-switch active" onclick="toggleService(this)"></button>
+                                </div>
+                            </div>
+
+                            <div class="service-card">
+                                <div class="service-name">Glucose Test</div>
+                                <div class="service-price">₱800</div>
+                                <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Fasting and random glucose testing</p>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <button class="button button-small button-primary" onclick="openEditModal('Glucose Test', '₱800', 'Fasting and random glucose testing', true)">Edit</button>
+                                    <button class="toggle-switch active" onclick="toggleService(this)"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Radiology Services Category -->
+                    <div class="service-category">
+                        <div class="category-header" onclick="toggleCategory('radiology-services')">
+                            <h4>Radiology Services</h4>
+                            <span class="toggle-icon" id="radiology-services-icon">▼</span>
+                        </div>
+                        <div id="radiology-services" class="category-grid">
+                            <div class="service-card">
+                                <div class="service-name">X-Ray</div>
+                                <div class="service-price">₱6,000</div>
+                                <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Digital radiography imaging</p>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <button class="button button-small button-primary" onclick="openEditModal('X-Ray', '₱6,000', 'Digital radiography imaging', true)">Edit</button>
+                                    <button class="toggle-switch active" onclick="toggleService(this)"></button>
+                                </div>
+                            </div>
+
+                            <div class="service-card">
+                                <div class="service-name">Ultrasound</div>
+                                <div class="service-price">₱7,500</div>
+                                <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">High-resolution ultrasound scan</p>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <button class="button button-small button-primary" onclick="openEditModal('Ultrasound', '₱7,500', 'High-resolution ultrasound scan', false)">Edit</button>
+                                    <button class="toggle-switch" onclick="toggleService(this)"></button>
+                                </div>
+                            </div>
+
+                            <div class="service-card">
+                                <div class="service-name">CT Scan</div>
+                                <div class="service-price">₱15,000</div>
+                                <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Advanced CT imaging technology</p>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <button class="button button-small button-primary" onclick="openEditModal('CT Scan', '₱15,000', 'Advanced CT imaging technology', false)">Edit</button>
+                                    <button class="toggle-switch" onclick="toggleService(this)"></button>
+                                </div>
+                            </div>
+
+                            <div class="service-card">
+                                <div class="service-name">MRI Scan</div>
+                                <div class="service-price">₱18,000</div>
+                                <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">High-field MRI imaging</p>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <button class="button button-small button-primary" onclick="openEditModal('MRI Scan', '₱18,000', 'High-field MRI imaging', false)">Edit</button>
+                                    <button class="toggle-switch" onclick="toggleService(this)"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cardiology Services Category -->
+                    <div class="service-category">
+                        <div class="category-header" onclick="toggleCategory('cardiology-services')">
+                            <h4>Cardiology Services</h4>
+                            <span class="toggle-icon" id="cardiology-services-icon">▼</span>
+                        </div>
+                        <div id="cardiology-services" class="category-grid">
+                            <div class="service-card">
+                                <div class="service-name">ECG</div>
+                                <div class="service-price">₱4,000</div>
+                                <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Electrocardiogram heart monitoring</p>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <button class="button button-small button-primary" onclick="openEditModal('ECG', '₱4,000', 'Electrocardiogram heart monitoring', true)">Edit</button>
+                                    <button class="toggle-switch active" onclick="toggleService(this)"></button>
+                                </div>
+                            </div>
+
+                            <div class="service-card">
+                                <div class="service-name">Echocardiogram</div>
+                                <div class="service-price">₱10,000</div>
+                                <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Ultrasound imaging of the heart</p>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <button class="button button-small button-primary" onclick="openEditModal('Echocardiogram', '₱10,000', 'Ultrasound imaging of the heart', false)">Edit</button>
+                                    <button class="toggle-switch" onclick="toggleService(this)"></button>
+                                </div>
+                            </div>
+
+                            <div class="service-card">
+                                <div class="service-name">Stress Test</div>
+                                <div class="service-price">₱8,000</div>
+                                <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Cardiac stress testing procedure</p>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <button class="button button-small button-primary" onclick="openEditModal('Stress Test', '₱8,000', 'Cardiac stress testing procedure', true)">Edit</button>
+                                    <button class="toggle-switch active" onclick="toggleService(this)"></button>
+                                </div>
+                            </div>
+
+                            <div class="service-card">
+                                <div class="service-name">Holter Monitor</div>
+                                <div class="service-price">₱5,000</div>
+                                <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">24-hour heart rate monitoring</p>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <button class="button button-small button-primary" onclick="openEditModal('Holter Monitor', '₱5,000', '24-hour heart rate monitoring', true)">Edit</button>
+                                    <button class="toggle-switch active" onclick="toggleService(this)"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Transactions Section -->
+            <section id="transactions" class="section">
+                <div class="header">
+                    <h1 class="page-title">Daily Transactions</h1>
+                    <div class="user-menu">
+                        <input type="date" style="padding: 8px 12px; border-radius: 6px; border: 1px solid #cbd5e1;">
+                        <button class="button button-primary button-small">Print</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3 class="table-title">Transaction Details</h3>
+                        <div class="table-filters">
+                            <input type="text" placeholder="Search..." style="padding: 8px 12px; border-radius: 6px; border: 1px solid #cbd5e1;">
+                            <select style="padding: 8px 12px; border-radius: 6px; border: 1px solid #cbd5e1;">
+                                <option>All Status</option>
+                                <option>Completed</option>
+                                <option>Pending</option>
+                                <option>Failed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Patient Name</th>
+                                <th>Service</th>
+                                <th>Amount</th>
+                                <th>Payment Method</th>
+                                <th>Status</th>
+                                <th>Time</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#001</td>
+                                <td>John Smith</td>
+                                <td>Blood Test</td>
+                                <td>$45.00</td>
+                                <td>Cash</td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                                <td>09:30 AM</td>
+                                <td><button class="button button-secondary button-small">Receipt</button></td>
+                            </tr>
+                            <tr>
+                                <td>#002</td>
+                                <td>Sarah Johnson</td>
+                                <td>COVID Test</td>
+                                <td>$25.00</td>
+                                <td>Card</td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                                <td>10:15 AM</td>
+                                <td><button class="button button-secondary button-small">Receipt</button></td>
+                            </tr>
+                            <tr>
+                                <td>#003</td>
+                                <td>Mike Davis</td>
+                                <td>X-Ray</td>
+                                <td>$120.00</td>
+                                <td>Insurance</td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>11:00 AM</td>
+                                <td><button class="button button-secondary button-small">Receipt</button></td>
+                            </tr>
+                            <tr>
+                                <td>#004</td>
+                                <td>Emma Wilson</td>
+                                <td>Urinalysis</td>
+                                <td>$35.00</td>
+                                <td>Cash</td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                                <td>01:45 PM</td>
+                                <td><button class="button button-secondary button-small">Receipt</button></td>
+                            </tr>
+                            <tr>
+                                <td>#005</td>
+                                <td>Robert Brown</td>
+                                <td>Thyroid Panel</td>
+                                <td>$65.00</td>
+                                <td>Card</td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                                <td>02:30 PM</td>
+                                <td><button class="button button-secondary button-small">Receipt</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="reports" class="section">
+                <div class="header">
+                    <h1 class="page-title">Reports & Analytics</h1>
+                    <div class="user-menu">
+                        <button class="button button-primary button-small">Export</button>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">Monthly Revenue</div>
+                                <div class="card-value">₱1,241,000</div>
+                                <div class="card-trend">↑ 15% from last month</div>
+                            </div>
+                            <div class="card-icon">💵</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">Total Services</div>
+                                <div class="card-value">1,240</div>
+                                <div class="card-trend">↑ 22% from last month</div>
+                            </div>
+                            <div class="card-icon">📊</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">Avg Transaction</div>
+                                <div class="card-value">₱2,825</div>
+                                <div class="card-trend">↓ 5% from last month</div>
+                            </div>
+                            <div class="card-icon">📈</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">Patient Satisfaction</div>
+                                <div class="card-value">94%</div>
+                                <div class="card-trend">↑ 3% from last month</div>
+                            </div>
+                            <div class="card-icon">⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3 class="table-title">Service Performance</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Count</th>
+                                <th>Revenue</th>
+                                <th>Avg Price</th>
+                                <th>Trend</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Blood Test</td>
+                                <td>320</td>
+                                <td>₱720,000</td>
+                                <td>₱2,250</td>
+                                <td><span class="badge badge-success">↑ 18%</span></td>
+                            </tr>
+                            <tr>
+                                <td>COVID Test</td>
+                                <td>180</td>
+                                <td>₱225,000</td>
+                                <td>₱1,250</td>
+                                <td><span class="badge badge-warning">↓ 8%</span></td>
+                            </tr>
+                            <tr>
+                                <td>X-Ray</td>
+                                <td>95</td>
+                                <td>₱570,000</td>
+                                <td>₱6,000</td>
+                                <td><span class="badge badge-success">↑ 12%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Urinalysis</td>
+                                <td>240</td>
+                                <td>₱420,000</td>
+                                <td>₱1,750</td>
+                                <td><span class="badge badge-success">↑ 25%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Ultrasound</td>
+                                <td>75</td>
+                                <td>₱562,500</td>
+                                <td>₱7,500</td>
+                                <td><span class="badge badge-success">↑ 33%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Receipts Section -->
+            <section id="receipts" class="section">
+                <div class="header">
+                    <h1 class="page-title">Receipt Management</h1>
+                    <div class="user-menu">
+                        <button class="button button-primary button-small">New Receipt</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3 class="table-title">Recent Receipts</h3>
+                        <input type="text" placeholder="Search receipts..." style="padding: 8px 12px; border-radius: 6px; border: 1px solid #cbd5e1;">
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Receipt #</th>
+                                <th>Patient</th>
+                                <th>Service</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>RCP-2025-001</td>
+                                <td>John Smith</td>
+                                <td>Blood Test</td>
+                                <td>$45.00</td>
+                                <td>Nov 26, 2025</td>
+                                <td><span class="badge badge-success">Printed</span></td>
+                                <td><button class="button button-secondary button-small">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>RCP-2025-002</td>
+                                <td>Sarah Johnson</td>
+                                <td>COVID Test</td>
+                                <td>$25.00</td>
+                                <td>Nov 26, 2025</td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td><button class="button button-secondary button-small">Print</button></td>
+                            </tr>
+                            <tr>
+                                <td>RCP-2025-003</td>
+                                <td>Mike Davis</td>
+                                <td>X-Ray</td>
+                                <td>$120.00</td>
+                                <td>Nov 26, 2025</td>
+                                <td><span class="badge badge-success">Printed</span></td>
+                                <td><button class="button button-secondary button-small">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>RCP-2025-004</td>
+                                <td>Emma Wilson</td>
+                                <td>Urinalysis</td>
+                                <td>$35.00</td>
+                                <td>Nov 25, 2025</td>
+                                <td><span class="badge badge-success">Printed</span></td>
+                                <td><button class="button button-secondary button-small">View</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Added edit service modal dialog -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Service Details</h2>
+                <button class="close-btn" onclick="closeEditModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Service Name</label>
+                    <input type="text" id="editServiceName" class="form-input" placeholder="Enter service name">
+                </div>
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="text" id="editServicePrice" class="form-input" placeholder="Enter price (e.g., ₱2,250)">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="editServiceDesc" class="form-input" placeholder="Enter service description" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 10px;">
+                        <input type="checkbox" id="editServiceStatus" checked>
+                        Service Available
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeEditModal()">Cancel</button>
+                <button class="button button-primary" onclick="saveServiceChanges()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Add active class to clicked nav link
+            event.target.closest('.nav-link').classList.add('active');
+        }
+
+        function toggleService(button) {
+            button.classList.toggle('active');
+        }
+
+        function toggleCategory(categoryId) {
+            const element = document.getElementById(categoryId);
+            const icon = document.getElementById(categoryId + '-icon');
+
+            if (element.style.display === 'none' || element.style.display === '') {
+                element.style.display = 'grid'; // Change to 'grid' for the new category-grid structure
+                icon.textContent = '▼';
+                icon.classList.add('active');
+            } else {
+                element.style.display = 'none';
+                icon.textContent = '▶';
+                icon.classList.remove('active');
+            }
+        }
+
+        function openEditModal(name, price, desc, status) {
+            document.getElementById('editServiceName').value = name;
+            document.getElementById('editServicePrice').value = price;
+            document.getElementById('editServiceDesc').value = desc;
+            document.getElementById('editServiceStatus').checked = status;
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+        }
+
+        function saveServiceChanges() {
+            const name = document.getElementById('editServiceName').value;
+            const price = document.getElementById('editServicePrice').value;
+            const desc = document.getElementById('editServiceDesc').value;
+            
+            if (!name || !price) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            console.log('[v0] Service updated:', { name, price, desc });
+            alert('Service details updated successfully!');
+            closeEditModal();
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('editModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEditModal();
+            }
+        });
+
+        // Function to toggle sidebar for mobile view
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

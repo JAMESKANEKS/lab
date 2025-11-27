@@ -1,0 +1,35 @@
+Key Features
+Service Availability List
+Displays all laboratory services (e.g., X-ray, blood tests, diagnostic scans).
+Shows service name, category, and current price.
+Indicates if a service is available or temporarily unavailable.
+Daily Transaction Log
+Shows all services availed by patients for the day.
+Auto-generates:
+Quantity of services availed
+List of patients and services
+*Total amount collected for the day
+Date Selection & Report Recovery
+Allows staff to select a  specific date  to view past transactions.
+Retrieves:
+Services availed on that date
+Total income
+Number of transactions
+Useful for generating weekly or monthly reports.
+Receipt Printing
+Automatically generates receipts containing:
+Laboratory name & contact details
+Patient name
+List of availed services
+Individual prices
+Grand total
+Date & time of transaction
+Receipts may be printed or saved as PDF.
+Price & Service Management
+Admin can update:
+Price per service
+Add or remove items
+Mark services as available/unavailable
+Secure Staff Access
+Multiple user roles (Admin, Cashier, Laboratory Staff).
+Tracks edits and transaction history for security.
