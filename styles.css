@@ -48,7 +48,7 @@ body {
 
 .logo-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 24px;
 }
@@ -63,7 +63,7 @@ body {
 }
 
 .logo-image {
-  width: 80px;
+  width: 100px;
   height: 80px;
   margin-bottom: 12px;
   border-radius: 8px;
