@@ -8,6 +8,9 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
   background-color: #f5f7fa;
   color: #1a202c;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
 }
 
 .container {
@@ -70,12 +73,13 @@ body {
 }
 
 .logo-text {
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.3;
-  color: white;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.4;
+  color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .nav-menu {
@@ -93,10 +97,12 @@ body {
   padding: 12px 16px;
   border-radius: 8px;
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.9);
   transition: all 0.3s ease;
   cursor: pointer;
   font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
 }
 
 .nav-link:hover,
@@ -133,8 +139,11 @@ body {
 
 .page-title {
   font-size: 32px;
-  font-weight: 700;
-  color: #001f3f;
+  font-weight: 800;
+  color: #001a33;
+  letter-spacing: -0.5px;
+  line-height: 1.3;
+  margin: 0;
 }
 
 .user-menu {
@@ -187,10 +196,11 @@ body {
 
 .card-title {
   font-size: 16px;
-  font-weight: 600;
-  color: #64748b;
+  font-weight: 700;
+  color: #4a5568;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  margin: 0 0 8px 0;
 }
 
 .card-icon {
@@ -408,14 +418,16 @@ select:focus {
 
 .service-name {
   font-weight: 700;
-  color: #001f3f;
-  margin-bottom: 8px;
+  color: #1a202c;
+  font-size: 16px;
+  margin-bottom: 6px;
+  letter-spacing: -0.2px;
 }
 
 .service-price {
   font-size: 18px;
   font-weight: 700;
-  color: #ffd700;
+  color: #2d3748;
   margin-bottom: 8px;
 }
 
