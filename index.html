@@ -4,8 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Toledo Doctor's and Diagnostic Center</title>
-    <link rel="stylesheet" href="styles.css?v=1.0.2">
+    <link id="main-css" rel="stylesheet" href="">
     <link rel="icon" href="logo.jpg" type="image/jpg">
+    <script>
+        // Add cache-buster timestamp to CSS
+        document.addEventListener('DOMContentLoaded', function() {
+            const cssLink = document.getElementById('main-css');
+            // Add timestamp and version for cache busting
+            cssLink.href = 'styles.css?v=' + new Date().getTime() + '.1.0.3';
+        });
+    </script>
 </head>
 <body>
     <div class="container">
